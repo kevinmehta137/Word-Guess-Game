@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Number Checker</title>
+
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css"></link>
+
+</head>
+
+<body>
+
+  <div class="jumbotron">
+    <img src="./assets/images/logo.png" id="img">
+    <h2 class="text-center">See if you can guess the number the computer is thinker of!</h2>
+  </div>
+
+  <div class="container">
+      <div class="row align-middle ">
+          <h3 id="words-blank" class="h3">_ _ _ _ _ _ _ _ _</h3>
+      </div>
+      <div class="row align-middle ">
+            <p class="p"> 
+                wins: <span id="wins-counter" class="num">0</span><br/>
+                losses: <span id="loss-counter" class="num">0</span><br/>
+                remaining: <span id="guessleft" class="num">9</span><br/>       
+            </p>
+
+      </div>
+      <script type="text/javascript">
+      var words=["bootstrap", "jquery", "react", "angular", "node", "ajax","javascript", "firebase", "heroku", "github", "gitlab", "mysql", "mongodb",
+"express", "mongoose", "sequelize", "handlebars", "materialize", "redux", "mysql"];
+var win=0;
+var loss=0;
+var wrongletter=[];
+var guessleft=9;
+var underscore=[];
+var userguess=[];
+var randomwords;
+var wincounter=0;
+
+function startGame(){
+    randomwords = words[Math.floor(Math.random()*words.length)];
+    for(var i=0 ;i<randomwords.length;i++)
+    {
+        underscore.push(" _ ");
+       
+    }
+    console.log(randomwords);
+    document.getElementById("words-blank").textContent = underscore.join(" ");
+
+    wrongletter=[];
+    guessleft=10;
+
+    document.getElementById("guessleft").textContent = guessleft;
+
+}
+function winlose(){
+    if(wincounter === randomwords.length)
+    {
+        alert("you win");
+        startGame();
+    }
+    else if(guessleft===0)
+    {
+        alert("loser")
+        startGame();
+    }
+}
+//user guess
+document.onkeyup= function(event){
+ userguess=event.key;
+   if(randomwords.indexOf(userguess)> -1)
+ {
+     for( var j=0;j<randomwords.length;j++)
+     {
+         if(randomwords[j]=== userguess)
+         {
+             underscore[j]=userguess;
+             wincounter++;
+             winlose();
+
+         }
+     }
+ }
+    else
+    {
+        wrongletter.push(userguess);
+        guessleft--;
+    }
+}
+
+startGame();
+
+      </script>
+  </div>
+       
+</body>
+
+</html>
